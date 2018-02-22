@@ -2,10 +2,14 @@ package com.example.ardin.planmytrip.db
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.example.ardin.planmytrip.model.UserModel
+
 
 /**
  * Created by ardin on 21/02/18.
@@ -44,10 +48,32 @@ class UserDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         return true
     }
 
+    fun login(username: String, password: String): Int {
+        val db = writableDatabase
+        var cursor: Cursor? = null
+
+        val selectionArgs = arrayOf(username, password)
+        try {
+            var i = 0;
+
+            cursor = db.rawQuery("select * from ${DBContract.UserCreate.TABLE_NAME} where ${DBContract.UserCreate.COLUMN_EMAIL} =? and ${DBContract.UserCreate.COLUMN_PASSWORD}=?", selectionArgs)
+
+            cursor.moveToFirst()
+            i = cursor.count
+            cursor.close()
+
+            return i
+        } catch (e: SQLiteException) {
+            e.printStackTrace()
+        }
+
+        return 0
+    }
+
     companion object {
         // If you change the database schema, you must increment the database version.
-        val DATABASE_VERSION = 1
-        val DATABASE_NAME = "FeedReader.db"
+        const val DATABASE_VERSION = 1
+        const val DATABASE_NAME = "FeedReader.db"
 
         private val SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + DBContract.UserCreate.TABLE_NAME + " (" +

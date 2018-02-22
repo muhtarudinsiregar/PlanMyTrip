@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.example.ardin.planmytrip.R
 import com.example.ardin.planmytrip.db.UserDbHelper
 import com.example.ardin.planmytrip.model.UserModel
-import com.example.ardin.planmytrip.presenter.SignupPresenter
 import kotlinx.android.synthetic.main.activity_signup.*
 
 /**
@@ -28,9 +27,7 @@ class SignupActivity : AppCompatActivity() {
             val email = textEmail.text.toString()
             val password = textPassword.text.toString()
 
-            val result = userDbHelper.insert(UserModel(email, password, name, age))
-            Log.d("SignupActivity", email)
-            Toast.makeText(this, "Ntak", Toast.LENGTH_LONG).show()
+            userDbHelper.insert(UserModel(email, password, name, age))
         }
     }
 }
