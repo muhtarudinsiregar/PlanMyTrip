@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient">
 
+    <TextView
+        android:layout_marginTop="48dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="@string/app_name"
+        android:textSize="48sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_centerInParent="true"
         android:gravity="center"
@@ -17,7 +26,7 @@
 
         <TextView
             android:textColor="@color/white"
-            android:text="@string/app_name"
+            android:text="@string/login"
             android:textSize="32sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -43,6 +52,7 @@
             app:met_floatingLabel="highlight" />
 
         <Button
+            android:layout_marginTop="8dp"
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

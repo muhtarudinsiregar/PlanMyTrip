@@ -19,10 +19,15 @@
         </activity>
         <activity
             android:name=".feature.SignupActivity"
-            android:theme="@style/SignupAppTheme"></activity>
+            android:theme="@style/SignupAppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ardin.planmytrip.feature.MainActivity" />
+
+        </activity>
         <activity
             android:name=".feature.HomeActivity"
-            android:theme="@style/SignupAppTheme"></activity>
+            android:theme="@style/SignupAppTheme" />
     </application>
 
 </manifest>
