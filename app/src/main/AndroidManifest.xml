@@ -20,6 +20,9 @@
         <activity
             android:name=".feature.SignupActivity"
             android:theme="@style/SignupAppTheme"></activity>
+        <activity
+            android:name=".feature.HomeActivity"
+            android:theme="@style/SignupAppTheme"></activity>
     </application>
 
 </manifest>
