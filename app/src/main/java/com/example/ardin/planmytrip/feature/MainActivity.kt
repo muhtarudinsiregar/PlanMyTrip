@@ -1,12 +1,11 @@
-package com.example.ardin.planmytrip
+package com.example.ardin.planmytrip.feature
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.example.ardin.planmytrip.R
 import com.example.ardin.planmytrip.db.UserDbHelper
-import com.example.ardin.planmytrip.feature.HomeActivity
-import com.example.ardin.planmytrip.feature.SignupActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
