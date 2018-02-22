@@ -3,6 +3,7 @@
     package="com.example.ardin.planmytrip">
 
     <application
+        android:name=".application.SqliteExample"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".feature.SignupActivity"
+            android:theme="@style/SignupAppTheme"></activity>
+        <activity
+            android:name=".feature.HomeActivity"
+            android:theme="@style/SignupAppTheme"></activity>
     </application>
 
 </manifest>
