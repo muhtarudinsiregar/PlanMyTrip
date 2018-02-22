@@ -3,6 +3,7 @@ package com.example.ardin.planmytrip.db
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.database.SQLException
 import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
@@ -28,8 +29,8 @@ class UserDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         super.onDowngrade(db, oldVersion, newVersion)
     }
 
-    @Throws(SQLiteConstraintException::class)
-    fun insert(user: UserModel): Boolean {
+//    @Throws(SQLiteConstraintException::class)
+    fun insert(user: UserModel): Long {
         val db = writableDatabase
 
         //create new map, where column names are the key
@@ -37,18 +38,23 @@ class UserDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         val table = DBContract.UserCreate
 
         values.apply {
-            put(table.COLUMN_USER_ID, 1)
             put(table.COLUMN_PASSWORD, user.password)
             put(table.COLUMN_EMAIL, user.email)
             put(table.COLUMN_AGE, user.age)
             put(table.COLUMN_NAME, user.name)
         }
 
-        db.insert(table.TABLE_NAME, null, values)
-        return true
+        try {
+            val result = db.insert(table.TABLE_NAME, null, values)
+            return result
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+
+        return 0
     }
 
-    fun login(username: String, password: String): Int {
+    fun login(username: String, password: String): Boolean {
         val db = writableDatabase
         var cursor: Cursor? = null
 
@@ -62,12 +68,12 @@ class UserDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
             i = cursor.count
             cursor.close()
 
-            return i
+            return true
         } catch (e: SQLiteException) {
             e.printStackTrace()
         }
 
-        return 0
+        return false
     }
 
     companion object {
@@ -77,7 +83,6 @@ class UserDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
         private val SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + DBContract.UserCreate.TABLE_NAME + " (" +
-                        DBContract.UserCreate.COLUMN_USER_ID + " TEXT PRIMARY KEY," +
                         DBContract.UserCreate.COLUMN_NAME + " TEXT," +
                         DBContract.UserCreate.COLUMN_PASSWORD + " TEXT," +
                         DBContract.UserCreate.COLUMN_EMAIL + " TEXT," +

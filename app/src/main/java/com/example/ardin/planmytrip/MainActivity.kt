@@ -3,8 +3,9 @@ package com.example.ardin.planmytrip
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.widget.Toast
 import com.example.ardin.planmytrip.db.UserDbHelper
+import com.example.ardin.planmytrip.feature.HomeActivity
 import com.example.ardin.planmytrip.feature.SignupActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,8 +27,17 @@ class MainActivity : AppCompatActivity() {
             val name = textUsername.text.toString()
             val password = textPassword.text.toString()
 
-            val loginCheck = userDbHelper.login(name, password)
-            Log.d("MainActivity", loginCheck.toString())
+            val loginSuccess = userDbHelper.login(name, password)
+
+            if (loginSuccess) {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Username/Password anda salah", Toast.LENGTH_LONG)
+                        .show()
+                textPassword.setText("")
+                textUsername.setText("")
+            }
         }
     }
 }
